@@ -2,12 +2,13 @@ extends Node2D
 
 signal message_finished
 
+export var left_path = false
 var letter_prototype = preload("res://LetterScene.tscn")
 
 func _instance_letter(letter):
 	var letter_scene = letter_prototype.instance()
 	letter_scene.set_text(letter)
-	letter_scene.spawn()
+	letter_scene.spawn(left_path)
 	add_child(letter_scene)
 	
 func show_message(message):
