@@ -65,8 +65,8 @@ left_path = true
 [node name="MessageFill" parent="." instance=ExtResource( 9 )]
 anchor_top = 1.0
 anchor_right = 0.0
-margin_top = 500.0
+margin_top = 420.0
 margin_right = 1025.0
-margin_bottom = 597.0
+margin_bottom = 517.0
 [connection signal="animation_finished" from="HBoxContainer/Mom" to="." method="_on_Mom_animation_finished"]
 [connection signal="animation_finished" from="HBoxContainer/Son" to="." method="_on_Son_animation_finished"]
