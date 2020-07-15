@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://MouthTextDream.gd" type="Script" id=1]
 [ext_resource path="res://sprites/person_icons/mom1.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://sprites/person_icons/hero1.png" type="Texture" id=6]
 [ext_resource path="res://sprites/person_icons/hero2.png" type="Texture" id=7]
 [ext_resource path="res://sprites/person_icons/hero3.png" type="Texture" id=8]
+[ext_resource path="res://MessageFill.tscn" type="PackedScene" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -60,5 +61,12 @@ speed_scale = 0.5
 [node name="LetterSpawner" parent="HBoxContainer/Son" instance=ExtResource( 5 )]
 position = Vector2( -40, 0 )
 left_path = true
+
+[node name="MessageFill" parent="." instance=ExtResource( 9 )]
+anchor_top = 1.0
+anchor_right = 0.0
+margin_top = 500.0
+margin_right = 1025.0
+margin_bottom = 597.0
 [connection signal="animation_finished" from="HBoxContainer/Mom" to="." method="_on_Mom_animation_finished"]
 [connection signal="animation_finished" from="HBoxContainer/Son" to="." method="_on_Son_animation_finished"]
