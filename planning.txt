@@ -1,0 +1,16 @@
+about a character adrift at sea
+he has strange dreams brought on by sun and exhaustion
+each dream is a minigame
+if he wins the minigame in his dream he gets something useful
+each day his health declines
+when he beats the final game he reaches land
+
+minigames: 
+driving a bus
+rhythm game - classic tap tap with dancing
+button mash as things come out of mouth of ui-portraits - this one is WEIRD
+
+things you get:
+fish
+
+dvorak: string quartet no 12 in F major op 96 'The American': II. Lento
