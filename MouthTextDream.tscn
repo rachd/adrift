@@ -1,14 +1,17 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://MouthTextDream.gd" type="Script" id=1]
 [ext_resource path="res://sprites/person_icons/mom1.png" type="Texture" id=2]
 [ext_resource path="res://sprites/person_icons/mom2.png" type="Texture" id=3]
 [ext_resource path="res://sprites/person_icons/mom3.png" type="Texture" id=4]
-[ext_resource path="res://LetterSpawner.tscn" type="PackedScene" id=5]
-[ext_resource path="res://sprites/person_icons/hero1.png" type="Texture" id=6]
-[ext_resource path="res://sprites/person_icons/hero2.png" type="Texture" id=7]
-[ext_resource path="res://sprites/person_icons/hero3.png" type="Texture" id=8]
-[ext_resource path="res://MessageFill.tscn" type="PackedScene" id=9]
+[ext_resource path="res://sprites/person_icons/mom4.png" type="Texture" id=5]
+[ext_resource path="res://LetterSpawner.tscn" type="PackedScene" id=6]
+[ext_resource path="res://sprites/person_icons/hero1.png" type="Texture" id=7]
+[ext_resource path="res://sprites/person_icons/hero2.png" type="Texture" id=8]
+[ext_resource path="res://sprites/person_icons/hero3.png" type="Texture" id=9]
+[ext_resource path="res://sprites/person_icons/hero4.png" type="Texture" id=10]
+[ext_resource path="res://MessageFill.tscn" type="PackedScene" id=11]
+[ext_resource path="res://monofonto.ttf" type="DynamicFontData" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -21,20 +24,34 @@ animations = [ {
 "loop": false,
 "name": "close_mouth",
 "speed": 1.0
+}, {
+"frames": [ ExtResource( 5 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": false,
+"name": "sad_open_mouth",
+"speed": 1.0
 } ]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": false,
 "name": "open_mouth",
 "speed": 1.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 6 ) ],
-"loop": true,
+"frames": [ ExtResource( 9 ), ExtResource( 8 ), ExtResource( 7 ) ],
+"loop": false,
 "name": "close_mouth",
-"speed": 5.0
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 7 ) ],
+"loop": false,
+"name": "sad",
+"speed": 1.0
 } ]
+
+[sub_resource type="DynamicFont" id=3]
+size = 50
+font_data = ExtResource( 12 )
 
 [node name="MouthTextDream" type="Node2D"]
 script = ExtResource( 1 )
@@ -47,10 +64,10 @@ alignment = 1
 [node name="Mom" type="AnimatedSprite" parent="HBoxContainer"]
 position = Vector2( 235, 195 )
 frames = SubResource( 1 )
-animation = "open_mouth"
+animation = "sad_open_mouth"
 speed_scale = 0.5
 
-[node name="LetterSpawner" parent="HBoxContainer/Mom" instance=ExtResource( 5 )]
+[node name="LetterSpawner" parent="HBoxContainer/Mom" instance=ExtResource( 6 )]
 
 [node name="Son" type="AnimatedSprite" parent="HBoxContainer"]
 position = Vector2( 760, 200 )
@@ -58,15 +75,29 @@ frames = SubResource( 2 )
 animation = "open_mouth"
 speed_scale = 0.5
 
-[node name="LetterSpawner" parent="HBoxContainer/Son" instance=ExtResource( 5 )]
+[node name="LetterSpawner" parent="HBoxContainer/Son" instance=ExtResource( 6 )]
 position = Vector2( -40, 0 )
 left_path = true
 
-[node name="MessageFill" parent="." instance=ExtResource( 9 )]
+[node name="MessageFill" parent="." instance=ExtResource( 11 )]
 anchor_top = 1.0
 anchor_right = 0.0
 margin_top = 420.0
 margin_right = 1025.0
 margin_bottom = 517.0
+
+[node name="TimeLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = 465.0
+margin_top = 40.0
+margin_right = 550.0
+margin_bottom = 80.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.756863, 0.243137, 0.243137, 1 )
+align = 1
+
+[node name="SecondTimer" type="Timer" parent="."]
 [connection signal="animation_finished" from="HBoxContainer/Mom" to="." method="_on_Mom_animation_finished"]
 [connection signal="animation_finished" from="HBoxContainer/Son" to="." method="_on_Son_animation_finished"]
+[connection signal="timeout" from="SecondTimer" to="." method="_on_SecondTimer_timeout"]

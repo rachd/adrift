@@ -7,7 +7,7 @@
 size = 50
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "FloatLeft"
 tracks/0/type = "value"
 tracks/0/path = NodePath("..:position")
@@ -22,8 +22,7 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( -40, -60 ), Vector2( -100, -300 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "FloatRight"
+[sub_resource type="Animation" id=3]
 tracks/0/type = "value"
 tracks/0/path = NodePath("..:position")
 tracks/0/interp = 1
@@ -50,5 +49,5 @@ valign = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
 playback_speed = 0.5
-anims/FloatLeft = SubResource( 3 )
-anims/FloatRight = SubResource( 2 )
+anims/FloatLeft = SubResource( 2 )
+anims/FloatRight = SubResource( 3 )
