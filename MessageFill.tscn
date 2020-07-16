@@ -12,7 +12,7 @@ font_path = "res://text/monofonto.ttf"
 
 [sub_resource type="DynamicFont" id=3]
 size = 60
-outline_color = Color( 0.694118, 0.466667, 0.105882, 1 )
+outline_color = Color( 0.25098, 0.0392157, 0.835294, 1 )
 font_data = SubResource( 2 )
 
 [node name="MessageFill" type="MarginContainer"]

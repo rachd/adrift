@@ -1,5 +1,8 @@
 extends Node2D
 
+signal game_ended(did_win)
+signal scene_ended
+
 var is_Mom_opening = false
 var current_mom_message = 0
 var is_Son_opening = false
@@ -18,6 +21,8 @@ var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var rng = RandomNumberGenerator.new()
 
 func _ready():
+	self.connect("game_ended", get_node("/root/SailingDay"), "_on_game_output")
+	self.connect("scene_ended", get_node("/root/SailingDay"), "_start_next_day")
 	rng.randomize()
 	is_Mom_opening = true
 	is_Mom_talking = true
@@ -74,6 +79,9 @@ func _on_Son_animation_finished():
 			is_Mom_talking = true
 			current_mom_message = 0
 			$HBoxContainer/Mom.play("sad_open_mouth")
+	else:
+		emit_signal("scene_ended")
+		self.queue_free()
 
 func _generate_random_string():
 	var output = ""
@@ -92,9 +100,9 @@ func _end_game():
 	$MessageFill.clear_message()
 	$HBoxContainer/Son.play("close_mouth")
 	if did_win:
-		print("you won")
+		emit_signal("game_ended", true)
 	else:
-		print("you lose")
+		emit_signal("game_ended", false)
 
 func _on_SecondTimer_timeout():
 	time_remaining -= 1

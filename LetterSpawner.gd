@@ -1,6 +1,6 @@
 extends Node2D
 
-signal letter_entered
+signal letter_entered(letter)
 
 export var left_path = false
 var letter_prototype = preload("res://LetterScene.tscn")
@@ -21,7 +21,7 @@ func set_listening(is_listening):
 	_is_listening = is_listening
 	
 func _ready():
-	self.connect("letter_entered", get_node("/root/MouthTextDream/MessageFill"), "_on_letter_entered")
+	self.connect("letter_entered", get_node("/root/SailingDay/MouthTextDream/MessageFill"), "_on_letter_entered")
 
 func _unhandled_input(event):
 	if _is_listening and event is InputEventKey:

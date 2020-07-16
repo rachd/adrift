@@ -1,7 +1,7 @@
 extends MarginContainer
 
 signal message_finished
-signal letter_processed
+signal letter_processed(letter, is_correct)
 
 var _next_letter
 var _message
@@ -30,5 +30,5 @@ func _on_letter_entered(letter):
 		emit_signal("letter_processed", letter, false)
 			
 func _ready():
-	self.connect("message_finished", get_node("/root/MouthTextDream"), "_on_message_finished")
-	self.connect("letter_processed", get_node("/root/MouthTextDream"), "_on_letter_processed")
+	self.connect("message_finished", get_node("/root/SailingDay/MouthTextDream"), "_on_message_finished")
+	self.connect("letter_processed", get_node("/root/SailingDay/MouthTextDream"), "_on_letter_processed")
