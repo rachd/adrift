@@ -5,6 +5,7 @@ export var transition_duration = 1.00
 export var transition_type = 1 # TRANS_SINE
 
 var mouth_text_dream = preload("res://MouthTextDream.tscn")
+var maze_dream = preload("res://MazeDream.tscn")
 
 var dialog = [
 	["This is the first text.  It should set the scene.", 
@@ -37,10 +38,13 @@ func _on_next_message():
 	_set_next_text()
 
 func _cue_next_scene():
+	var next_scene
 	if day == 0:
-		var next_scene = mouth_text_dream.instance()
-		_fade_out($AudioStreamPlayer)
-		add_child(next_scene)
+		next_scene = maze_dream.instance()
+	elif day == 1:
+		next_scene = mouth_text_dream.instance()
+	_fade_out($AudioStreamPlayer)
+	add_child(next_scene)
 
 func _start_next_day():
 	day += 1
