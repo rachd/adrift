@@ -6,6 +6,7 @@ export var transition_type = 1 # TRANS_SINE
 
 var mouth_text_dream = preload("res://MouthTextDream.tscn")
 var maze_dream = preload("res://MazeDream.tscn")
+var fader = preload("res://Fader.tscn")
 
 var dialog = [
 	["This is the first text.  It should set the scene.", 
@@ -19,6 +20,7 @@ var message_index = 0
 var current_text = null
 var health = 60
 var is_win = false
+var fade = null
 
 func _set_next_text():
 	var dialog_set = dialog[day]
@@ -27,7 +29,7 @@ func _set_next_text():
 		message_index += 1
 		$textbox.set_text(current_text);
 	else:
-		_cue_next_scene()
+		_fade_out()
 	
 
 func _ready():
@@ -43,13 +45,13 @@ func _cue_next_scene():
 		next_scene = maze_dream.instance()
 	elif day == 1:
 		next_scene = mouth_text_dream.instance()
-	_fade_out($AudioStreamPlayer)
 	add_child(next_scene)
+	
 
 func _start_next_day():
 	day += 1
 	message_index = 0
-	$AudioStreamPlayer.play()
+	_fade_in()
 	_set_next_text()
 	
 func _on_game_output(did_win):
@@ -60,13 +62,31 @@ func _on_game_output(did_win):
 		health -= 20
 		is_win = false
 	$HealthBar.set_health(health)
+	
+func _add_fader():
+	fade = fader.instance()
+	fade.rect_size.x = 1024
+	fade.rect_size.y = 600
+	add_child(fade)
 
-func _fade_out(stream_player):
-    # tween music volume down to 0
-    tween_out.interpolate_property(stream_player, "volume_db", 0, -80, transition_duration, transition_type, Tween.EASE_IN, 0)
-    tween_out.start()
-    # when the tween ends, the music will be stopped
+func _fade_out():
+	_add_fader()
+	fade.fade_out()
+	# tween music volume down to 0
+	#tween_out.interpolate_property($AudioStreamPlayer, "volume_db", 0, -80, transition_duration, transition_type, Tween.EASE_IN, 0)
+	#tween_out.start()
+	
+func _fade_in():
+	_add_fader()
+	fade.fade_in()
+	#tween_out.interpolate_property($AudioStreamPlayer, "volume_db", -80, 0, transition_duration, transition_type, Tween.EASE_IN, 0)
+	#tween_out.start()
+	
+func _fade_in_finished():
+	$AudioStreamPlayer.play()
+	fade.queue_free()
 
-func _on_TweenOut_tween_completed(object, key):
-    # stop the music -- otherwise it continues to run at silent volume
-    object.stop()
+func _fade_out_finished():
+	$AudioStreamPlayer.stop()
+	_cue_next_scene()
+	fade.queue_free()

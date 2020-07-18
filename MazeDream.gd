@@ -1,5 +1,8 @@
 extends Node2D
 
+signal game_ended(did_win)
+signal scene_ended
+
 const N = 1
 const E = 2
 const S = 4
@@ -18,8 +21,12 @@ onready var Map = $TileMap
 
 func _ready():
 	randomize()
+	self.connect("game_ended", get_node("/root/SailingDay"), "_on_game_output")
+	self.connect("scene_ended", get_node("/root/SailingDay"), "_start_next_day")
 	tile_size = Map.cell_size
 	make_maze()
+	yield(get_tree().create_timer(1), "timeout")
+	$WaterDrop.play()
 	
 func check_neighbors(cell, unvisited):
 	var list = []
@@ -69,4 +76,13 @@ func erase_walls():
 			Map.set_cellv(cell+neighbor, n_walls)
 			
 func _on_found_spirit():
-	print("found spirit")
+	emit_signal("game_ended", true)
+	$Fairy.play()
+	
+func _on_found_evil_spirit():
+	emit_signal("game_ended", false)
+	$Cackle.play()
+
+func _on_spirit_sound_finished():
+	emit_signal("scene_ended")
+	self.queue_free()

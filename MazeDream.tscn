@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://MazeDream.gd" type="Script" id=1]
 [ext_resource path="res://sprites/maze/floor.png" type="Texture" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://MazeSpirit.tscn" type="PackedScene" id=5]
 [ext_resource path="res://EvilMazeSpirit.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Camera2D.gd" type="Script" id=7]
+[ext_resource path="res://audio/water_drop.ogg" type="AudioStream" id=8]
+[ext_resource path="res://audio/202096__spookymodem__goblin-cackle.wav" type="AudioStream" id=9]
+[ext_resource path="res://audio/sparkle_short.wav" type="AudioStream" id=10]
 
 [node name="MazeDream" type="Node2D"]
 script = ExtResource( 1 )
@@ -40,3 +43,14 @@ limit_top = 0
 limit_right = 1008
 limit_bottom = 576
 script = ExtResource( 7 )
+
+[node name="WaterDrop" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 8 )
+
+[node name="Cackle" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 9 )
+
+[node name="Fairy" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 10 )
+[connection signal="finished" from="Cackle" to="." method="_on_spirit_sound_finished"]
+[connection signal="finished" from="Fairy" to="." method="_on_spirit_sound_finished"]
