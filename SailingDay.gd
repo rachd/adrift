@@ -9,9 +9,10 @@ var maze_dream = preload("res://MazeDream.tscn")
 var fader = preload("res://Fader.tscn")
 
 var dialog = [
-	["This is the first text.  It should set the scene.", 
-	"This is the second text.  It should tell more about the character.", 
-	"This is the third text.  More story development and generally interesting content."],
+	["It's getting dark soon.  I wonder if I'll have another strange dream.", 
+	"Ever since the storm knocked me off course, my dreams have been especially vivid.", 
+	"Each one seems to require something of me.",
+	"Ah well, probably nothing more than a case of the nerves."],
 	["Second day first text."]
 ]
 
