@@ -1,0 +1,161 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://ChaseDream.gd" type="Script" id=1]
+[ext_resource path="res://Game Jelly Assets/background_0.png" type="Texture" id=2]
+[ext_resource path="res://sprites/bits/road.png" type="Texture" id=3]
+[ext_resource path="res://sprites/bits/lamp.png" type="Texture" id=4]
+[ext_resource path="res://sprites/bits/bench.png" type="Texture" id=5]
+[ext_resource path="res://ChasePlayer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ChaseEnemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ChaseCamera.gd" type="Script" id=8]
+[ext_resource path="res://ChaseDoor.tscn" type="PackedScene" id=9]
+
+[node name="ChaseDream" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="background_0" type="Sprite" parent="."]
+position = Vector2( 216, 168 )
+scale = Vector2( 1.5, 1.92222 )
+texture = ExtResource( 2 )
+
+[node name="background_1" type="Sprite" parent="."]
+position = Vector2( 648, 168 )
+scale = Vector2( 1.5, 1.92222 )
+texture = ExtResource( 2 )
+
+[node name="background_2" type="Sprite" parent="."]
+position = Vector2( 1512, 168 )
+scale = Vector2( 1.5, 1.92222 )
+texture = ExtResource( 2 )
+
+[node name="background_3" type="Sprite" parent="."]
+position = Vector2( 1080, 168 )
+scale = Vector2( 1.5, 1.92222 )
+texture = ExtResource( 2 )
+
+[node name="road" type="Sprite" parent="."]
+position = Vector2( 53.6289, 137.307 )
+texture = ExtResource( 3 )
+offset = Vector2( 26.3711, 2.69261 )
+
+[node name="road2" type="Sprite" parent="."]
+position = Vector2( 240, 140 )
+texture = ExtResource( 3 )
+
+[node name="road3" type="Sprite" parent="."]
+position = Vector2( 400, 140 )
+texture = ExtResource( 3 )
+
+[node name="road4" type="Sprite" parent="."]
+position = Vector2( 560, 140 )
+texture = ExtResource( 3 )
+
+[node name="road5" type="Sprite" parent="."]
+position = Vector2( 720, 140 )
+texture = ExtResource( 3 )
+
+[node name="road6" type="Sprite" parent="."]
+position = Vector2( 880, 140 )
+texture = ExtResource( 3 )
+
+[node name="road7" type="Sprite" parent="."]
+position = Vector2( 1040, 140 )
+texture = ExtResource( 3 )
+
+[node name="road8" type="Sprite" parent="."]
+position = Vector2( 1200, 140 )
+texture = ExtResource( 3 )
+
+[node name="road9" type="Sprite" parent="."]
+position = Vector2( 1360, 140 )
+texture = ExtResource( 3 )
+
+[node name="road10" type="Sprite" parent="."]
+position = Vector2( 1520, 140 )
+texture = ExtResource( 3 )
+
+[node name="road11" type="Sprite" parent="."]
+position = Vector2( 1680, 140 )
+texture = ExtResource( 3 )
+
+[node name="lamp2" type="Sprite" parent="."]
+position = Vector2( 192, 113 )
+texture = ExtResource( 4 )
+
+[node name="lamp4" type="Sprite" parent="."]
+position = Vector2( 448, 113 )
+texture = ExtResource( 4 )
+
+[node name="lamp6" type="Sprite" parent="."]
+position = Vector2( 695, 127 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
+[node name="lamp8" type="Sprite" parent="."]
+position = Vector2( 951, 127 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
+[node name="lamp10" type="Sprite" parent="."]
+position = Vector2( 1207, 126.5 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
+[node name="lamp12" type="Sprite" parent="."]
+position = Vector2( 1463, 127 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
+[node name="lamp14" type="Sprite" parent="."]
+position = Vector2( 1719, 127 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
+[node name="bench" type="Sprite" parent="."]
+position = Vector2( 80, 126 )
+texture = ExtResource( 5 )
+
+[node name="bench2" type="Sprite" parent="."]
+position = Vector2( 320, 126 )
+texture = ExtResource( 5 )
+
+[node name="bench3" type="Sprite" parent="."]
+position = Vector2( 576, 126.229 )
+texture = ExtResource( 5 )
+
+[node name="bench4" type="Sprite" parent="."]
+position = Vector2( 816, 126 )
+texture = ExtResource( 5 )
+
+[node name="bench5" type="Sprite" parent="."]
+position = Vector2( 1072, 126.229 )
+texture = ExtResource( 5 )
+
+[node name="bench6" type="Sprite" parent="."]
+position = Vector2( 1328, 126 )
+texture = ExtResource( 5 )
+
+[node name="bench7" type="Sprite" parent="."]
+position = Vector2( 1584, 126 )
+texture = ExtResource( 5 )
+
+[node name="ChasePlayer" parent="." instance=ExtResource( 6 )]
+position = Vector2( 138, 121 )
+
+[node name="ChaseEnemy" parent="." instance=ExtResource( 7 )]
+position = Vector2( -32, 82 )
+scale = Vector2( 1.5, 1.92222 )
+
+[node name="ChaseCamera" type="Camera2D" parent="."]
+position = Vector2( 216, 168 )
+scale = Vector2( 1.5, 1.92222 )
+current = true
+zoom = Vector2( 0.2, 0.2 )
+limit_left = 0
+limit_top = 0
+limit_right = 1728
+limit_bottom = 148
+script = ExtResource( 8 )
+
+[node name="ChaseDoor" parent="." instance=ExtResource( 9 )]
+position = Vector2( 1679, 121 )

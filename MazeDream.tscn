@@ -32,7 +32,7 @@ position = Vector2( 22.5, 20 )
 position = Vector2( 984, 548 )
 
 [node name="EvilMazeSpirit" parent="." instance=ExtResource( 6 )]
-position = Vector2( 985, 20 )
+position = Vector2( 985, 24 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 125, 70 )
@@ -44,13 +44,13 @@ limit_right = 1008
 limit_bottom = 576
 script = ExtResource( 7 )
 
-[node name="WaterDrop" type="AudioStreamPlayer2D" parent="."]
+[node name="WaterDrop" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 
-[node name="Cackle" type="AudioStreamPlayer2D" parent="."]
+[node name="Cackle" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )
 
-[node name="Fairy" type="AudioStreamPlayer2D" parent="."]
+[node name="Fairy" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 10 )
 [connection signal="finished" from="Cackle" to="." method="_on_spirit_sound_finished"]
 [connection signal="finished" from="Fairy" to="." method="_on_spirit_sound_finished"]

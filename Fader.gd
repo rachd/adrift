@@ -6,8 +6,11 @@ signal fade_in_finished
 func fade_out():
 	$AnimationPlayer.play("FadeOut")
 
-func fade_in():
+func fade_in_dream():
 	$AnimationPlayer.play("FadeIn")
+	
+func fade_in():
+	$AnimationPlayer.play("FadeInNewDay")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "FadeOut":

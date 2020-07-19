@@ -6,22 +6,37 @@ export var transition_type = 1 # TRANS_SINE
 
 var mouth_text_dream = preload("res://MouthTextDream.tscn")
 var maze_dream = preload("res://MazeDream.tscn")
+var chase_dream = preload("res://ChaseDream.tscn")
 var fader = preload("res://Fader.tscn")
 
 var dialog = [
-	["It's getting dark soon.  I wonder if I'll have another strange dream.", 
+	["It's getting dark soon. I wonder if I'll have another strange dream.", 
 	"Ever since the storm knocked me off course, my dreams have been especially vivid.", 
 	"Each one seems to require something of me.",
-	"Ah well, probably nothing more than a case of the nerves."],
-	["Second day first text."]
+	"Ah well, probably nothing more than a case of the nerves.",
+	"I shouldn't worry to much about it and focus more about finding land soon",
+	"My supplies won't last forever"],
+	["That shadowy figure seems familiar.  Have I dreamed about it before?",
+	"But could it be...?",
+	"A spirit guide?",
+	"Were the elders right that they would come to help me on my journey?",
+	"No, that's not possible, they're all just stories to keep the kids happy",
+	"Everyone knows they send us out knowing most of us won't come back",
+	"They have to keep the island from overpopulating somehow."],
+	["Day 3"],
+	["Day 4"]
 ]
 
-var day = 0
+var no_fish_dialogs = [["No fish today. That storm must have messed up the currents.", "Hopefully I'll have better luck tomorrow."], ["No bites on my line. Maybe I ran into a trickster spirit."]]
+var fish_dialogs = [["A bite! Looks like that storm didn't cause the fish any harm.", "I'll be in good shape to get back on course tomorrow."], ["Lots of fish today. Maybe I do have a guardian spirit"]]
+
+var day = 2
 var message_index = 0
 var current_text = null
 var health = 60
 var is_win = false
 var fade = null
+var did_play_fish_result = false
 
 func _set_next_text():
 	var dialog_set = dialog[day]
@@ -29,16 +44,47 @@ func _set_next_text():
 		current_text = dialog_set[message_index]
 		message_index += 1
 		$textbox.set_text(current_text);
+	elif day > 0:
+		if !did_play_fish_result:
+			_fish_result()
 	else:
 		_fade_out()
 	
-
+func _set_fish_message():
+	var dialog_set
+	if is_win:
+		dialog_set = fish_dialogs[day-1]
+	else:
+		dialog_set = no_fish_dialogs[day-1]
+	if message_index < len(dialog_set):
+		current_text = dialog_set[message_index]
+		message_index += 1
+		$textbox.set_text(current_text)
+	else:
+		_fade_out()
+					
 func _ready():
-	_set_next_text();
+	_set_next_text()
 	$HealthBar.set_health(health)
 	
 func _on_next_message():
-	_set_next_text()
+	if did_play_fish_result:
+		_set_fish_message()
+	else:
+		_set_next_text()
+	
+func _fish_result():
+	did_play_fish_result = true
+	if is_win:
+		$fishtextbox.show()
+		health += 20
+	else:
+		$nofishtextbox.show()
+		health -= 20
+	$HealthBar.set_health(health)
+	message_index = 0
+	yield(get_tree().create_timer(1), "timeout")
+	_set_fish_message()
 
 func _cue_next_scene():
 	var next_scene
@@ -46,8 +92,12 @@ func _cue_next_scene():
 		next_scene = maze_dream.instance()
 	elif day == 1:
 		next_scene = mouth_text_dream.instance()
+	elif day == 2:
+		next_scene = chase_dream.instance()
+	did_play_fish_result = false
+	$fishtextbox.hide()
+	$nofishtextbox.hide()
 	add_child(next_scene)
-	
 
 func _start_next_day():
 	day += 1
@@ -57,12 +107,9 @@ func _start_next_day():
 	
 func _on_game_output(did_win):
 	if did_win:
-		health += 20
 		is_win = true
 	else:
-		health -= 20
 		is_win = false
-	$HealthBar.set_health(health)
 	
 func _add_fader():
 	fade = fader.instance()
