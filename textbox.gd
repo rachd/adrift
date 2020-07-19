@@ -3,8 +3,13 @@ extends Control
 signal next_message
 
 func set_text(text):
+	$NinePatchRect/Button_Image.visible = false
 	$NinePatchRect/MarginContainer/Label.text = text
 	$NinePatchRect/MarginContainer/Label/AnimationPlayer.play("PercentVisible")
+	
+func clear_text():
+	$NinePatchRect/Button_Image.visible = false
+	$NinePatchRect/MarginContainer/Label.text = ""
 	
 func _ready():
 	self.connect("next_message", get_node("/root/SailingDay"), "_on_next_message")

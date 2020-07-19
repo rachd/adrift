@@ -1,8 +1,4 @@
 extends Node2D
-onready var tween_out = get_node("Tween")
-
-export var transition_duration = 1.00
-export var transition_type = 1 # TRANS_SINE
 
 var mouth_text_dream = preload("res://MouthTextDream.tscn")
 var maze_dream = preload("res://MazeDream.tscn")
@@ -14,29 +10,31 @@ var dialog = [
 	"Ever since the storm knocked me off course, my dreams have been especially vivid.", 
 	"Each one seems to require something of me.",
 	"Ah well, probably nothing more than a case of the nerves.",
-	"I shouldn't worry to much about it and focus more about finding land soon",
-	"My supplies won't last forever"],
+	"I shouldn't worry too much about it and focus more about finding land soon.",
+	"My supplies have gotten low."],
 	["That shadowy figure seems familiar.  Have I dreamed about it before?",
-	"But could it be...?",
-	"A spirit guide?",
+	"But could it be...? A spirit guide?",
 	"Were the elders right that they would come to help me on my journey?",
 	"No, that's not possible, they're all just stories to keep the kids happy",
 	"Everyone knows they send us out knowing most of us won't come back",
 	"They have to keep the island from overpopulating somehow."],
-	["Day 3"],
+	["Why do I keep having these dreams?", "Am I being sent a message?", "No, I must be going crazy. Too much time out in the sun."],
 	["Day 4"]
 ]
 
-var no_fish_dialogs = [["No fish today. That storm must have messed up the currents.", "Hopefully I'll have better luck tomorrow."], ["No bites on my line. Maybe I ran into a trickster spirit."]]
-var fish_dialogs = [["A bite! Looks like that storm didn't cause the fish any harm.", "I'll be in good shape to get back on course tomorrow."], ["Lots of fish today. Maybe I do have a guardian spirit"]]
+var no_fish_dialogs = [["No fish today. That storm must have messed up the currents.", "Hopefully I'll have better luck tomorrow."], ["No bites on my line. Maybe I ran into a trickster spirit."], ["No fish 3"]]
+var fish_dialogs = [["A bite! Looks like that storm didn't cause the fish any harm.", "I'll be in good shape to get back on course tomorrow."], ["Lots of fish today. Maybe I do have a guardian spirit"], ["This will keep me going for a while!"]]
+var death_dialog = ["All this time with no food... I lack the strength to go on...", "Looks like I won't get to see my mother again.", "They'll say I died because I wasn't a true believer.", "I hope she knows I love her."]
+var life_dialog = ["Whether it is madness or mysticism, my fate seems tied to these dreams.", "If I can master them, maybe I can return home.", "Or maybe I am just the plaything of some bored spirit", "only keeping me alive until its amusement fades.", "Either way, I have no choice but to sail on."]
 
-var day = 2
+var day = 0
 var message_index = 0
 var current_text = null
-var health = 60
+var health = 50
 var is_win = false
 var fade = null
 var did_play_fish_result = false
+var is_game_over = false
 
 func _set_next_text():
 	var dialog_set = dialog[day]
@@ -60,6 +58,9 @@ func _set_fish_message():
 		current_text = dialog_set[message_index]
 		message_index += 1
 		$textbox.set_text(current_text)
+	elif day == 3:
+		message_index = 0
+		_live()
 	else:
 		_fade_out()
 					
@@ -68,12 +69,19 @@ func _ready():
 	$HealthBar.set_health(health)
 	
 func _on_next_message():
-	if did_play_fish_result:
+	if is_game_over:
+		if health == 0:
+			_die()
+		else:
+			_live()
+	elif did_play_fish_result:
 		_set_fish_message()
 	else:
 		_set_next_text()
 	
 func _fish_result():
+	$textbox.clear_text()
+	yield(get_tree().create_timer(2), "timeout")
 	did_play_fish_result = true
 	if is_win:
 		$fishtextbox.show()
@@ -82,11 +90,38 @@ func _fish_result():
 		$nofishtextbox.show()
 		health -= 20
 	$HealthBar.set_health(health)
-	message_index = 0
 	yield(get_tree().create_timer(1), "timeout")
-	_set_fish_message()
+	message_index = 0
+	if health == 0:
+		_die()
+	else:
+		yield(get_tree().create_timer(1), "timeout")
+		_set_fish_message()
 
+func _live():
+	var dialog_set = life_dialog
+	is_game_over = true
+	if message_index < len(dialog_set):
+		current_text = dialog_set[message_index]
+		message_index += 1
+		$textbox.set_text(current_text)
+	else:
+		_fade_out()
+	
+func _die():
+	var dialog_set = death_dialog
+	is_game_over = true
+	if message_index < len(dialog_set):
+		current_text = dialog_set[message_index]
+		message_index += 1
+		$textbox.set_text(current_text)
+	else:
+		_fade_out()
+		
 func _cue_next_scene():
+	if is_game_over:
+		get_tree().change_scene("res://TitleScreen.tscn")
+		
 	var next_scene
 	if day == 0:
 		next_scene = maze_dream.instance()
@@ -97,6 +132,7 @@ func _cue_next_scene():
 	did_play_fish_result = false
 	$fishtextbox.hide()
 	$nofishtextbox.hide()
+	$textbox.clear_text()
 	add_child(next_scene)
 
 func _start_next_day():
@@ -120,15 +156,10 @@ func _add_fader():
 func _fade_out():
 	_add_fader()
 	fade.fade_out()
-	# tween music volume down to 0
-	#tween_out.interpolate_property($AudioStreamPlayer, "volume_db", 0, -80, transition_duration, transition_type, Tween.EASE_IN, 0)
-	#tween_out.start()
 	
 func _fade_in():
 	_add_fader()
 	fade.fade_in()
-	#tween_out.interpolate_property($AudioStreamPlayer, "volume_db", -80, 0, transition_duration, transition_type, Tween.EASE_IN, 0)
-	#tween_out.start()
 	
 func _fade_in_finished():
 	$AudioStreamPlayer.play()

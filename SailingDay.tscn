@@ -62,8 +62,6 @@ margin_top = 600.0
 margin_right = 512.0
 margin_bottom = 600.0
 
-[node name="Tween" type="Tween" parent="."]
-
 [node name="fishtextbox" type="Sprite" parent="."]
 visible = false
 position = Vector2( 908, 273 )
