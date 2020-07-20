@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://MazePlayer.gd" type="Script" id=1]
-[ext_resource path="res://sprites/maze_person/right1.png" type="Texture" id=2]
-[ext_resource path="res://sprites/maze_person/right2.png" type="Texture" id=3]
-[ext_resource path="res://sprites/maze_person/left1.png" type="Texture" id=4]
-[ext_resource path="res://sprites/maze_person/left2.png" type="Texture" id=5]
+[ext_resource path="res://sprites/maze_person/left1.png" type="Texture" id=2]
+[ext_resource path="res://sprites/maze_person/left2.png" type="Texture" id=3]
+[ext_resource path="res://sprites/maze_person/right1.png" type="Texture" id=4]
+[ext_resource path="res://sprites/maze_person/right2.png" type="Texture" id=5]
 [ext_resource path="res://sprites/maze_person/up1.png" type="Texture" id=6]
 [ext_resource path="res://sprites/maze_person/up3.png" type="Texture" id=7]
 [ext_resource path="res://sprites/maze_person/idle.png" type="Texture" id=8]
@@ -15,12 +15,12 @@
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
 "loop": true,
-"name": "right",
+"name": "left",
 "speed": 3.0
 }, {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
-"name": "left",
+"name": "right",
 "speed": 3.0
 }, {
 "frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
@@ -40,7 +40,7 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]
-radius = 7.0
+radius = 5.0
 height = 0.0
 
 [node name="MazePlayer" type="KinematicBody2D"]

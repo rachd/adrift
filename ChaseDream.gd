@@ -11,9 +11,7 @@ func _ready():
 func _on_reached_door():
 	emit_signal("game_ended", true)
 	emit_signal("scene_ended")
-	self.queue_free()
 	
 func _on_player_hit():
 	emit_signal("game_ended", false)
 	emit_signal("scene_ended")
-	self.queue_free()

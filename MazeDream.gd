@@ -12,8 +12,8 @@ var cell_walls = {Vector2(1, 0): E, Vector2(-1, 0): W,
 				  Vector2(0, 1): S, Vector2(0, -1): N}
 				
 var tile_size = 48 # in pixels
-var width = 21 # in tiles
-var height = 12 # in tiles
+var width = 15 # in tiles
+var height = 9 # in tiles
 
 var erase_fraction = 0.1
 
@@ -85,4 +85,3 @@ func _on_found_evil_spirit():
 
 func _on_spirit_sound_finished():
 	emit_signal("scene_ended")
-	self.queue_free()

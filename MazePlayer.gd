@@ -36,9 +36,11 @@ func _physics_process(delta):
 	if !did_hit:
 		if collision_info and collision_info.collider.name == 'EvilMazeSpirit':
 			did_hit = true
+			speed = 0
 			emit_signal("found_evil_spirit")
 		elif collision_info and collision_info.collider.name == 'MazeSpirit':
 			did_hit = true
+			speed = 0
 			emit_signal("found_spirit")
 		
 func _ready():

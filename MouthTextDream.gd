@@ -6,14 +6,14 @@ signal scene_ended
 var is_Mom_opening = false
 var current_mom_message = 0
 var is_Son_opening = false
-var time_remaining = 15
+var time_remaining = 25
 var is_Mom_talking = false
 var is_Son_talking = false
 var did_mom_already_talk = false
 
 var did_win = false
 
-var MOM_MESSAGES = ["Where is my son?", "I miss him so dearly.", "If only he would speak to me."]
+var MOM_MESSAGES = ["I miss my son terribly.", "If only he would speak to me."]
 var MOM_SECOND_MESSAGES = ["Where are you son?", "I can't hear you."]
 var RANDOM_STRING_LENGTH = 30
 var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -81,7 +81,6 @@ func _on_Son_animation_finished():
 			$HBoxContainer/Mom.play("sad_open_mouth")
 	else:
 		emit_signal("scene_ended")
-		self.queue_free()
 
 func _generate_random_string():
 	var output = ""
@@ -117,3 +116,7 @@ func _on_letter_processed(letter, is_correct):
 			$HBoxContainer/Mom/LetterSpawner.instance_letter(letter, is_correct)
 		else:
 			$HBoxContainer/Son/LetterSpawner.instance_letter(letter, is_correct)
+
+
+func _on_AudioStreamPlayer_finished():
+	$AudioStreamPlayer.play()

@@ -4,6 +4,7 @@ signal next_message
 
 func set_text(text):
 	$NinePatchRect/Button_Image.visible = false
+	$NinePatchRect/MarginContainer/Label.percent_visible = 0
 	$NinePatchRect/MarginContainer/Label.text = text
 	$NinePatchRect/MarginContainer/Label/AnimationPlayer.play("PercentVisible")
 	

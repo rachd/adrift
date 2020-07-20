@@ -4,7 +4,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.0
-height = 5.0
+height = 7.0
 
 [node name="EvilMazeSpirit" type="StaticBody2D"]
 
