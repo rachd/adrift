@@ -3,6 +3,9 @@ extends ColorRect
 signal fade_out_finished
 signal fade_in_finished
 
+func set_to_black():
+	self.color = Color(1, 1, 1)
+
 func fade_out():
 	$AnimationPlayer.play("FadeOut")
 

@@ -34,6 +34,6 @@ disabled = true
 stream = ExtResource( 3 )
 
 [node name="start_timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.0
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="timeout" from="start_timer" to="." method="_on_start_timer_timeout"]

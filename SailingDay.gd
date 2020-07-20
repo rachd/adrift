@@ -10,7 +10,7 @@ var dialog = [
 	"Ever since the storm knocked me off course, my dreams have been especially vivid.", 
 	"Each one seems to require something of me.",
 	"Ah well, probably nothing more than a case of the nerves.",
-	"I shouldn't worry too much about it and focus more about finding land soon.",
+	"I shouldn't worry too much about it and focus more on finding land soon.",
 	"My food supplies have gotten low."],
 	["That shadowy figure seems familiar.  Have I dreamed about it before?",
 	"But could it be...? A spirit guide?",
@@ -27,7 +27,7 @@ var dialog = [
 	"If I were a god, I wouldn't care about humanity either.", 
 	"Not after what we've done to their creations.", 
 	"We brought our own flood upon ourselves.", 
-	"How can we be so naive to think we would be protected?"]
+	"How can we be so naive to think we are still protected?"]
 ]
 
 var no_fish_dialogs = [
@@ -161,18 +161,19 @@ func _play_final_dialog(dialog_set):
 func _cue_next_scene():
 	if is_game_over:
 		get_tree().change_scene("res://TitleScreen.tscn")
-	if day == 0:
-		next_scene = maze_dream.instance()
-	elif day == 1:
-		next_scene = mouth_text_dream.instance()
-	elif day == 2:
-		next_scene = chase_dream.instance()
-	did_play_fish_result = false
-	$fishtextbox.hide()
-	$nofishtextbox.hide()
-	$textbox.clear_text()
-	add_child(next_scene)
-	$night_background.hide()
+	else:
+		if day == 0:
+			next_scene = maze_dream.instance()
+		elif day == 1:
+			next_scene = mouth_text_dream.instance()
+		elif day == 2:
+			next_scene = chase_dream.instance()
+		did_play_fish_result = false
+		$fishtextbox.hide()
+		$nofishtextbox.hide()
+		$textbox.clear_text()
+		add_child(next_scene)
+		$night_background.hide()
 
 func _start_next_day():
 	day += 1
@@ -198,6 +199,7 @@ func _fade_out():
 	
 func _fade_in():
 	_add_fader()
+	fade.set_to_black()
 	if (next_scene != null):
 		next_scene.queue_free()
 	fade.fade_in()

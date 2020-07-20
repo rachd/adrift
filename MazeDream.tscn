@@ -3,9 +3,9 @@
 [ext_resource path="res://MazeDream.gd" type="Script" id=1]
 [ext_resource path="res://sprites/maze/floor.png" type="Texture" id=2]
 [ext_resource path="res://mazetileset.tres" type="TileSet" id=3]
-[ext_resource path="res://MazePlayer.tscn" type="PackedScene" id=4]
-[ext_resource path="res://MazeSpirit.tscn" type="PackedScene" id=5]
-[ext_resource path="res://EvilMazeSpirit.tscn" type="PackedScene" id=6]
+[ext_resource path="res://EvilMazeSpirit.tscn" type="PackedScene" id=4]
+[ext_resource path="res://MazePlayer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://MazeSpirit.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Camera2D.gd" type="Script" id=7]
 [ext_resource path="res://audio/water_drop.ogg" type="AudioStream" id=8]
 [ext_resource path="res://audio/202096__spookymodem__goblin-cackle.wav" type="AudioStream" id=9]
@@ -25,14 +25,14 @@ tile_set = ExtResource( 3 )
 cell_size = Vector2( 48, 48 )
 format = 1
 
-[node name="MazePlayer" parent="." instance=ExtResource( 4 )]
+[node name="EvilMazeSpirit" parent="." instance=ExtResource( 4 )]
+position = Vector2( 695, 22 )
+
+[node name="MazePlayer" parent="." instance=ExtResource( 5 )]
 position = Vector2( 22.5, 20 )
 
-[node name="MazeSpirit" parent="." instance=ExtResource( 5 )]
+[node name="MazeSpirit" parent="." instance=ExtResource( 6 )]
 position = Vector2( 695, 406 )
-
-[node name="EvilMazeSpirit" parent="." instance=ExtResource( 6 )]
-position = Vector2( 695, 22 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 125, 70 )
