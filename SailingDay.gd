@@ -6,7 +6,7 @@ var chase_dream = preload("res://ChaseDream.tscn")
 var fader = preload("res://Fader.tscn")
 
 var dialog = [
-	["It's getting dark soon. I wonder if I'll have another strange dream.", 
+	["It's getting dark. I wonder if I'll have another strange dream.", 
 	"Ever since the storm knocked me off course, my dreams have been especially vivid.", 
 	"Each one seems to require something of me.",
 	"Ah well, probably nothing more than a case of the nerves.",
@@ -34,14 +34,18 @@ var no_fish_dialogs = [
 	["No bites on my line. Maybe that was a trickster spirit I saw in my dream.", 
 	"Hopefully I'll have better luck tomorrow.",
 	"My supplies are dangerously low."],
-	["No fish today. These dreams keep distracting me.", "I need to stop thinking of home.", "The sea is my home for the next year."], 
+	["No fish today. These dreams keep distracting me.", 
+	"I need to stop thinking of home.", 
+	"The sea is my home for the next year."], 
 	["Was that demon the reason the fish have gone away?", 
 	"Was it my own failure that's putting me in danger of starvation?"]
 ]
 var fish_dialogs = [
 	["A bite! Looks like that storm didn't cause the fish any harm.", 
 	"This extra food will put me in good shape to try to get back on course tomorrow."], 
-	["Lots of fish today. Maybe I do have a guardian spirit.", "If this keeps up, I'll be able to restock my supplies.", "Still no sign of land though."], 
+	["Lots of fish today. Maybe I do have a guardian spirit.",
+	"If this keeps up, I'll be able to restock my supplies.", 
+	"Still no sign of land though."], 
 	["If it was a demon, it didn't stop me from finding food.", 
 	"It was a good thing that I got away."]
 ]
@@ -57,6 +61,13 @@ var life_dialog = [
 	"Or maybe I am just the plaything of some bored spirit,", 
 	"only keeping me alive until its amusement fades.", 
 	"Either way, I have no choice but to sail on."
+]
+var win_dialog = [
+	"Evil spirit, I defy you!",
+	"Your dreams cannot stop me!",
+	"I shall return victorious and prove I am a man!",
+	"My seed shall become the next generation.",
+	"I will see Denver once again."
 ]
 
 var day = 0
@@ -93,20 +104,26 @@ func _set_fish_message():
 		$textbox.set_text(current_text)
 	elif day == 3:
 		message_index = 0
-		_live()
+		if health >= 60:
+			_play_final_dialog(win_dialog)
+		else:
+			_play_final_dialog(life_dialog)
 	else:
 		_fade_out()
 					
 func _ready():
 	_set_next_text()
 	$HealthBar.set_health(health)
+	$night_background.show()
 	
 func _on_next_message():
 	if is_game_over:
 		if health <= 0:
-			_die()
+			_play_final_dialog(death_dialog)
+		elif health >= 60:
+			_play_final_dialog(win_dialog)
 		else:
-			_live()
+			_play_final_dialog(life_dialog)
 	elif did_play_fish_result:
 		_set_fish_message()
 	else:
@@ -114,6 +131,8 @@ func _on_next_message():
 	
 func _fish_result():
 	$textbox.clear_text()
+	yield(get_tree().create_timer(2), "timeout")
+	$night_background.show()
 	yield(get_tree().create_timer(2), "timeout")
 	did_play_fish_result = true
 	if is_win:
@@ -126,22 +145,11 @@ func _fish_result():
 	yield(get_tree().create_timer(1), "timeout")
 	message_index = 0
 	if health <= 0:
-		_die()
+		_play_final_dialog(death_dialog)
 	else:
 		_set_fish_message()
-
-func _live():
-	var dialog_set = life_dialog
-	is_game_over = true
-	if message_index < len(dialog_set):
-		current_text = dialog_set[message_index]
-		message_index += 1
-		$textbox.set_text(current_text)
-	else:
-		_fade_out()
-	
-func _die():
-	var dialog_set = death_dialog
+		
+func _play_final_dialog(dialog_set):
 	is_game_over = true
 	if message_index < len(dialog_set):
 		current_text = dialog_set[message_index]
@@ -153,7 +161,6 @@ func _die():
 func _cue_next_scene():
 	if is_game_over:
 		get_tree().change_scene("res://TitleScreen.tscn")
-		
 	if day == 0:
 		next_scene = maze_dream.instance()
 	elif day == 1:
@@ -165,6 +172,7 @@ func _cue_next_scene():
 	$nofishtextbox.hide()
 	$textbox.clear_text()
 	add_child(next_scene)
+	$night_background.hide()
 
 func _start_next_day():
 	day += 1

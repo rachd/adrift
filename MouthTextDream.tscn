@@ -2,14 +2,14 @@
 
 [ext_resource path="res://MouthTextDream.gd" type="Script" id=1]
 [ext_resource path="res://Game Jelly Assets/background_0.png" type="Texture" id=2]
-[ext_resource path="res://sprites/person_icons/mom3.png" type="Texture" id=3]
+[ext_resource path="res://sprites/person_icons/mom1.png" type="Texture" id=3]
 [ext_resource path="res://sprites/person_icons/mom2.png" type="Texture" id=4]
-[ext_resource path="res://sprites/person_icons/mom1.png" type="Texture" id=5]
+[ext_resource path="res://sprites/person_icons/mom3.png" type="Texture" id=5]
 [ext_resource path="res://sprites/person_icons/mom4.png" type="Texture" id=6]
 [ext_resource path="res://LetterSpawner.tscn" type="PackedScene" id=7]
-[ext_resource path="res://sprites/person_icons/hero3.png" type="Texture" id=8]
+[ext_resource path="res://sprites/person_icons/hero1.png" type="Texture" id=8]
 [ext_resource path="res://sprites/person_icons/hero2.png" type="Texture" id=9]
-[ext_resource path="res://sprites/person_icons/hero1.png" type="Texture" id=10]
+[ext_resource path="res://sprites/person_icons/hero3.png" type="Texture" id=10]
 [ext_resource path="res://sprites/person_icons/hero4.png" type="Texture" id=11]
 [ext_resource path="res://MessageFill.tscn" type="PackedScene" id=12]
 [ext_resource path="res://monofonto.ttf" type="DynamicFontData" id=13]
@@ -19,17 +19,17 @@
 animations = [ {
 "frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": false,
-"name": "close_mouth",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ],
-"loop": false,
-"name": "sad_open_mouth",
-"speed": 1.0
+"name": "open_mouth",
+"speed": 3.0
 }, {
 "frames": [ ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ],
 "loop": false,
-"name": "open_mouth",
+"name": "close_mouth",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": false,
+"name": "sad_open_mouth",
 "speed": 1.0
 } ]
 
@@ -37,18 +37,18 @@ animations = [ {
 animations = [ {
 "frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ) ],
 "loop": false,
-"name": "close_mouth",
-"speed": 1.0
-}, {
-"frames": [ ExtResource( 11 ), ExtResource( 10 ) ],
-"loop": false,
-"name": "sad",
-"speed": 1.0
+"name": "open_mouth",
+"speed": 3.0
 }, {
 "frames": [ ExtResource( 10 ), ExtResource( 9 ), ExtResource( 8 ) ],
 "loop": false,
-"name": "open_mouth",
-"speed": 1.0
+"name": "close_mouth",
+"speed": 3.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 8 ) ],
+"loop": false,
+"name": "sad",
+"speed": 3.0
 } ]
 
 [sub_resource type="DynamicFont" id=3]

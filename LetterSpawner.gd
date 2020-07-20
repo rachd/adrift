@@ -14,7 +14,7 @@ func instance_letter(letter, is_correct):
 	
 func show_message(message):
 	for letter in message:
-		yield(get_tree().create_timer(0.2), "timeout")
+		yield(get_tree().create_timer(0.15), "timeout")
 		emit_signal("letter_entered", letter)
 	
 func set_listening(is_listening):

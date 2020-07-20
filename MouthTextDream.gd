@@ -14,7 +14,8 @@ var did_mom_already_talk = false
 var did_win = false
 
 var MOM_MESSAGES = ["I miss my son terribly.", "If only he would speak to me."]
-var MOM_SECOND_MESSAGES = ["Where are you son?", "I can't hear you."]
+var MOM_SECOND_MESSAGES_LOSE = ["Where are you son?", "I can't hear you."]
+var MOM_SECOND_MESSAGES_WIN = ["My son is talking nonsense.", "Doesn't he love me?"]
 var RANDOM_STRING_LENGTH = 30
 var ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -47,14 +48,19 @@ func _play_mom_message():
 		$HBoxContainer/Mom/LetterSpawner.show_message(MOM_MESSAGES[current_mom_message])
 		current_mom_message += 1
 	else:
-		$MessageFill.set_message(MOM_SECOND_MESSAGES[current_mom_message])
-		$HBoxContainer/Mom/LetterSpawner.show_message(MOM_SECOND_MESSAGES[current_mom_message])
-		current_mom_message += 1
+		if did_win:
+			$MessageFill.set_message(MOM_SECOND_MESSAGES_WIN[current_mom_message])
+			$HBoxContainer/Mom/LetterSpawner.show_message(MOM_SECOND_MESSAGES_WIN[current_mom_message])
+			current_mom_message += 1
+		else:
+			$MessageFill.set_message(MOM_SECOND_MESSAGES_LOSE[current_mom_message])
+			$HBoxContainer/Mom/LetterSpawner.show_message(MOM_SECOND_MESSAGES_LOSE[current_mom_message])
+			current_mom_message += 1
 	
 func _on_message_finished():
 	yield(get_tree().create_timer(1), "timeout")
 	if is_Mom_talking:
-		if did_mom_already_talk and current_mom_message < len(MOM_SECOND_MESSAGES):
+		if did_mom_already_talk and current_mom_message < len(MOM_SECOND_MESSAGES_WIN):
 			_play_mom_message()
 		elif !did_mom_already_talk and current_mom_message < len(MOM_MESSAGES):
 			_play_mom_message()

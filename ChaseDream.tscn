@@ -33,6 +33,16 @@ position = Vector2( 1080, 168 )
 scale = Vector2( 1.5, 1.92222 )
 texture = ExtResource( 2 )
 
+[node name="background_4" type="Sprite" parent="."]
+position = Vector2( 1944, 168 )
+scale = Vector2( 1.5, 1.92222 )
+texture = ExtResource( 2 )
+
+[node name="background_5" type="Sprite" parent="."]
+position = Vector2( 2376, 168 )
+scale = Vector2( 1.5, 1.92222 )
+texture = ExtResource( 2 )
+
 [node name="road" type="Sprite" parent="."]
 position = Vector2( 53.6289, 137.307 )
 texture = ExtResource( 3 )
@@ -78,6 +88,30 @@ texture = ExtResource( 3 )
 position = Vector2( 1680, 140 )
 texture = ExtResource( 3 )
 
+[node name="road12" type="Sprite" parent="."]
+position = Vector2( 1840, 140 )
+texture = ExtResource( 3 )
+
+[node name="road13" type="Sprite" parent="."]
+position = Vector2( 2000, 140 )
+texture = ExtResource( 3 )
+
+[node name="road14" type="Sprite" parent="."]
+position = Vector2( 2160, 140 )
+texture = ExtResource( 3 )
+
+[node name="road15" type="Sprite" parent="."]
+position = Vector2( 2320, 140 )
+texture = ExtResource( 3 )
+
+[node name="road16" type="Sprite" parent="."]
+position = Vector2( 2480, 140 )
+texture = ExtResource( 3 )
+
+[node name="road17" type="Sprite" parent="."]
+position = Vector2( 2640, 140 )
+texture = ExtResource( 3 )
+
 [node name="lamp2" type="Sprite" parent="."]
 position = Vector2( 192, 113 )
 texture = ExtResource( 4 )
@@ -111,6 +145,21 @@ position = Vector2( 1719, 127 )
 texture = ExtResource( 4 )
 offset = Vector2( -7.02325, -13.5566 )
 
+[node name="lamp15" type="Sprite" parent="."]
+position = Vector2( 1975, 127 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
+[node name="lamp16" type="Sprite" parent="."]
+position = Vector2( 2231, 127 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
+[node name="lamp17" type="Sprite" parent="."]
+position = Vector2( 2487, 127 )
+texture = ExtResource( 4 )
+offset = Vector2( -7.02325, -13.5566 )
+
 [node name="bench" type="Sprite" parent="."]
 position = Vector2( 80, 126 )
 texture = ExtResource( 5 )
@@ -139,6 +188,21 @@ texture = ExtResource( 5 )
 position = Vector2( 1584, 126 )
 texture = ExtResource( 5 )
 
+[node name="bench8" type="Sprite" parent="."]
+position = Vector2( 1840, 126 )
+scale = Vector2( 1, 1.00614 )
+texture = ExtResource( 5 )
+
+[node name="bench9" type="Sprite" parent="."]
+position = Vector2( 2080, 126 )
+scale = Vector2( 1, 1.00614 )
+texture = ExtResource( 5 )
+
+[node name="bench10" type="Sprite" parent="."]
+position = Vector2( 2352, 126 )
+scale = Vector2( 1, 1.00614 )
+texture = ExtResource( 5 )
+
 [node name="ChasePlayer" parent="." instance=ExtResource( 6 )]
 position = Vector2( 138, 121 )
 
@@ -153,9 +217,9 @@ current = true
 zoom = Vector2( 0.2, 0.2 )
 limit_left = 0
 limit_top = 0
-limit_right = 1728
+limit_right = 2592
 limit_bottom = 148
 script = ExtResource( 8 )
 
 [node name="ChaseDoor" parent="." instance=ExtResource( 9 )]
-position = Vector2( 1679, 121 )
+position = Vector2( 2528.17, 120.226 )

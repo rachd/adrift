@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://textbox.gd" type="Script" id=1]
 [ext_resource path="res://sprites/textbox_day.png" type="Texture" id=2]
@@ -8,21 +8,6 @@
 [sub_resource type="DynamicFont" id=1]
 size = 30
 font_data = ExtResource( 3 )
-
-[sub_resource type="Animation" id=2]
-resource_name = "PercentVisible"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:percent_visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
 
 [node name="textbox" type="Control"]
 anchor_right = 1.0
@@ -59,11 +44,6 @@ text = "Once upon a time there was a guy in a boat.  He was floating along.  Isn
 autowrap = true
 percent_visible = 0.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="NinePatchRect/MarginContainer/Label"]
-autoplay = "PercentVisible"
-playback_speed = 0.5
-anims/PercentVisible = SubResource( 2 )
-
 [node name="Button_Image" type="NinePatchRect" parent="NinePatchRect"]
 anchor_left = 1.0
 anchor_top = 1.0
@@ -80,5 +60,9 @@ texture = ExtResource( 4 )
 margin_right = 42.0
 margin_bottom = 60.0
 flat = true
-[connection signal="animation_finished" from="NinePatchRect/MarginContainer/Label/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
 [connection signal="pressed" from="NinePatchRect/Button_Image/Button" to="." method="_on_Button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

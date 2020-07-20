@@ -14,7 +14,7 @@ func _set_wait_time():
 	
 func _ready():
 	rng.randomize()
-	_set_wait_time()
+	$start_timer.start()
 
 func _on_Timer_timeout():
 	var fireball = fireball_scene.instance()
@@ -22,4 +22,8 @@ func _on_Timer_timeout():
 	fireball.position.y = -8
 	$AudioStreamPlayer.play()
 	add_child(fireball)
+	_set_wait_time()
+
+
+func _on_start_timer_timeout():
 	_set_wait_time()

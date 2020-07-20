@@ -11,3 +11,7 @@ func _ready():
 
 func _on_PlayButton_pressed():
 	get_tree().change_scene("res://SailingDay.tscn")
+
+
+func _on_AudioStreamPlayer_finished():
+	$AudioStreamPlayer.play()

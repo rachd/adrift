@@ -15,7 +15,7 @@ var tile_size = 48 # in pixels
 var width = 15 # in tiles
 var height = 9 # in tiles
 
-var erase_fraction = 0.1
+var erase_fraction = 0.2
 
 onready var Map = $TileMap
 
